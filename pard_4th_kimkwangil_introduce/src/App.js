@@ -1,11 +1,9 @@
-import RegisterPage from "./Pages/RegisterPage/RegisterPage";
-import FeedPage from "./Pages/FeedPage/FeedPage";
+import Introduce from "./\bPages/Introduce";
 
 function App() {
     return (
         <div>
-            {/* <RegisterPage/> */}
-            <FeedPage/>
+            <Introduce/>
         </div>
     );
 }

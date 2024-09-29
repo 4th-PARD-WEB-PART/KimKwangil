@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+body {
+  font-family: "Gugi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+div{
+  display: flex;
+
+}
+
+*{
+  margin : 0;
+  padding : 0;
+}
+
+.BaseContainer {
+  width: 100vw;
+  height : 2000px;
+  background-color: gray;
+  color : #FEFAE0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.InfoContainer_top{
+  width: 1000px;
+  height : 400px;
+  color : black;
+
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 200px;
+}
+
+/*  */
+
+.IntroParagraph{
+  text-align: center;
+  flex-direction: column;
+}
+
+.IntroParagraph > p {
+  font-size: 40px;
+  color : #DDA15E;
+}
+.IntroParagraph > p > span {
+    color : #283618;
+    text-shadow: -1px 0px #BC6C25,
+    0px 1px #BC6C25,
+    1px 0px #BC6C25,
+    0px -1px #BC6C25;
+}
+
+/*  */
+
+.InfoContainer_main{
+  width: 1000px;
+
+  background-color: #FEFAE0;
+
+  border-radius: 40px;
+  
+  flex-direction: column;
+
+  margin-top: 100px;
+}
+/*  */
+
+.RowBox{
+  width: 100%;
+  height : 80px;
+  padding-left: 30px;
+
+  align-items: center;
+}
+
+
+.Title{
+  flex : 2;
+  font-size: 45px;
+  color: #BC6C25;
+}
+
+.Content{
+  flex: 8;
+  font-size: 30px;
+  color : #DDA15E;
+}
+
+
+.ProfileImg{
+  width : 150px;
+  margin-top : 40px;
+}
+
+.PageDownImg{
+  width: 100px;
+
+  margin: 200px 0px;
+}
+
+.SectionTitle{
+  color : #606C38;
+  font-size: 50px;
+}
+
+.Hr {
+  margin : 0px 30px;
+  border: 2px solid #283618;
+}
