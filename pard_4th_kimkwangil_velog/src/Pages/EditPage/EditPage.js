@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { FeedListHeader } from "../FeedPage/Components/FeedListHeader";
+import { useRecoilState } from "recoil";
 import { userInfo } from "../../Atom/Atom";
 
-function RegisterPage() {
-
-    const initUserData = {
-        name: "",
-        email: "",
-        password: "",
-        comment : "",
-    }
-
+function EditPage() {
     const [userDataRecoil, setUserDataRecoil] = useRecoilState(userInfo);
-    const [userData, setUserData] = useState(initUserData);
-    const [isChecked, setIsChecked] = useState(false);  // 체크박스 상태 추가
+    const [userData, setUserData] = useState(userDataRecoil);
+    const [initialData, setInitialData] = useState(userData); // 초기 데이터 저장
+    const [isModified, setIsModified] = useState(false); // 수정 여부 상태
 
-    // 모든 필드가 입력되고, 체크박스가 체크되었는지 확인하는 함수
+    useEffect(() => {
+        // 현재 데이터와 초기 데이터를 비교하여 수정 여부 확인
+        const isDataChanged = 
+            userData.name !== initialData.name || 
+            userData.email !== initialData.email ||
+            userData.password !== initialData.password || 
+            userData.comment !== initialData.comment;
+
+        setIsModified(isDataChanged);
+    }, [userData, initialData]);
+
     const isFormValid = () => {
         const { name, email, password, comment } = userData;
-        return name && email && password && comment && isChecked;
-    }
+        return name && email && password && comment;
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -29,26 +33,30 @@ function RegisterPage() {
             ...prevData,
             [name]: value
         }));
-    }
-
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    }
+    };
 
     const navigate = useNavigate();
     const handleRegister = () => {
-        if (isFormValid()) {
-            alert(userData.name + "님 반갑습니다!");
-            setUserDataRecoil(userData);
+        if (isFormValid() && isModified) {
+            if (window.confirm("수정하시겠습니까?")) {
+                setUserDataRecoil(userData);
+                navigate("/feed");
+            }
+        }
+    };
+
+    const handleCancle = () => {
+        if (window.confirm("수정을 취소하시겠습니까?")) {
             navigate("/feed");
         }
-    }
+    };
 
     return (
         <BaseContainer>
+            <FeedListHeader/>
             <RegisterContainer>
-                <Title>환영합니다!</Title>
-                <SubTitle>기본 회원 정보를 등록해주세요</SubTitle>
+                <Title>회원정보 수정</Title>
+                <SubTitle>회원 정보를 수정해주세요</SubTitle>
                 <InputDiv>
                     <InputType>이름</InputType>
                     <Input value={userData.name} name="name" type="text" placeholder="이름을 입력해주세요." onChange={handleInputChange}/>
@@ -65,52 +73,47 @@ function RegisterPage() {
                     <InputType>한줄 소개</InputType>
                     <Input value={userData.comment} name="comment" type="text" placeholder="자기소개를 입력해주세요." onChange={handleInputChange}/>
                 </InputDiv>
-                <CheckDiv>
-                    <CheckBox type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-                    <CheckBoxContent>
-                        <Under>이용약관</Under>과 <Under>개인정보취급방침</Under>에 동의합니다.
-                    </CheckBoxContent>
-                </CheckDiv>
 
                 <ButtonDiv>
-                    <CancleButton onClick={() => setUserData(initUserData)}>취소</CancleButton>
-                    <RegisterButton disabled={!isFormValid()} onClick={handleRegister} isFormValid={isFormValid()}>가입</RegisterButton>
+                    <CancleButton onClick={handleCancle}>취소</CancleButton>
+                    <RegisterButton disabled={!isFormValid() || !isModified} onClick={handleRegister} isFormValid={isFormValid() && isModified}>수정</RegisterButton>
                 </ButtonDiv>
             </RegisterContainer>
         </BaseContainer>
     );
 }
 
-const BaseContainer = styled.div `
+const BaseContainer = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 `;
 
 const RegisterContainer = styled.div`
     width: auto;
+    margin: 40px;
 `;
 
-const Title = styled.p `
+const Title = styled.p`
     font-size: 51px;
     font-weight: bold;
     margin-bottom: 5px;
 `;
 
-const SubTitle = styled.p `
+const SubTitle = styled.p`
     font-size: 19px;
     margin-bottom: 50px;
 `;
 
-const InputType = styled.p `
+const InputType = styled.p`
     font-size: 15px;
     margin-bottom: 10px;
-    color : #ACB5BD;
+    color: #ACB5BD;
 `;
 
-const Input = styled.input `
+const Input = styled.input`
     width: 350px;
     font-size: 19px;
     padding: 8px;
@@ -132,36 +135,19 @@ const Input = styled.input `
     }
 `;
 
-const InputDiv = styled.div `
+const InputDiv = styled.div`
     width: auto;
     height: auto;
     margin-bottom: 30px;
     
     &:focus-within ${InputType} {
-        color : #15B886;
+        color: #15B886;
     }
 `;
 
-const CheckDiv = styled.div `
-    display: flex;
-    align-items: center;
-    color: #000000;
-    margin-bottom: 70px;
-`;
+const ButtonDiv = styled.div``;
 
-const CheckBox = styled.input `
-    margin-right: 10px;
-`;
-
-const CheckBoxContent = styled.p ``;
-
-const Under = styled.a `
-    color: #15B886;
-`;
-
-const ButtonDiv = styled.div ``;
-
-const Button = styled.button `
+const Button = styled.button`
     width: 93px;
     height: 41px;
     border-radius: 20.5px;
@@ -175,13 +161,13 @@ const CancleButton = styled(Button)`
     background-color: #DEE2E6;
     margin-right: 10px;
 
-    &:hover{
+    &:hover {
         background-color: #DEE2E650;
     }
 `;
 
 const RegisterButton = styled(Button)`
-    color : #000000;
+    color: #000000;
     background-color: ${({ isFormValid }) => (isFormValid ? '#15B886' : '#DEE2E6')};  // 버튼 색상 변경
     cursor: ${({ isFormValid }) => (isFormValid ? 'pointer' : 'not-allowed')};  // 클릭 가능한 상태를 시각적으로 보여줌
 
@@ -190,4 +176,4 @@ const RegisterButton = styled(Button)`
     }
 `;
 
-export default RegisterPage;
+export default EditPage;
