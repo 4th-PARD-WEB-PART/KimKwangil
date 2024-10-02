@@ -10,7 +10,8 @@ export const Feed = ({
     date,
     commentCount,
     author,
-    heartCount
+    heartCount,
+    authorImage
 }) => {
 
     const [click, setClick] = useState(false);
@@ -46,7 +47,7 @@ export const Feed = ({
             </LinkBox>
             <FeedIntoBottom>
                 <FeedAuthorDiv>
-                    <FeedAuthorImage src=""/>
+                    <FeedAuthorImage src={authorImage} />
                     <FeedAuthor>by
                         <FeedAuthorName>{author}</FeedAuthorName>
                     </FeedAuthor>
@@ -154,7 +155,7 @@ const FeedAuthorDiv = styled.div `
 const FeedAuthorImage = styled.img `
     width: 22px;
     height : 22px;
-    background-color: #d9d9d9;
+    border : 1px solid #d9d9d9;
     border-radius: 50%;
 
     margin-right: 10px;

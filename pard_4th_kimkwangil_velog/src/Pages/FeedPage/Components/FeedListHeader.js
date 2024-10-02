@@ -25,7 +25,7 @@ export const FeedListHeader = () => {
                 <BellImage src="/Img/bell.png" />
                 <SearchImage src="/Img/search.png" />
                 <WriteButton>새 글 작성</WriteButton>
-                <Link to="/edit"><ProfileImage src="" /></Link>
+                <Link to="/edit"><ProfileImage src="/Img/author/my.png" /></Link>
             </IconList>
         </HeaderDiv>
     );
@@ -80,7 +80,8 @@ const WriteButton = styled.div `
 const ProfileImage = styled.img `
     width: 40px;
     height : 40px;
-    background-color: #d9d9d9;
+    /* background-color: #d9d9d9; */
+    border : 1px solid #d9d9d9;
     border-radius : 20px;
     margin-right: 20px;
 `;

@@ -24,7 +24,9 @@ export const FeedListContent = () => {
                                     date={feed.date}
                                     commentCount={feed.commentCount}
                                     author={feed.author}
-                                    heartCount={feed.heartCount}/>
+                                    heartCount={feed.heartCount}
+                                    authorImage={feed.authorImage}
+                                />
                             ))
                         }
                     </Row>

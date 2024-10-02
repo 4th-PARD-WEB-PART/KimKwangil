@@ -15,8 +15,26 @@ function DetailPage() {
     };
     useEffect(() => {
         setFeedData(getFeedById(feed_id));
-
     }, []);
+    useEffect(() => {
+        setHeartCountValue(feedData?.heartCount);
+    }, [feedData]);
+
+    const [click, setClick] = useState(false);
+    const [heartCountValue, setHeartCountValue] = useState(feedData?.heartCount || 0);
+    const handleHeartClick = () => {
+        // 클릭 상태 변경
+        setClick(!click);
+
+        // 상태에 따라 하트 개수 업데이트
+        if (click) {
+            // 클릭되어 있으면 감소
+            setHeartCountValue((prevCount) => prevCount - 1);
+        } else {
+            // 클릭되지 않았으면 증가
+            setHeartCountValue((prevCount) => prevCount + 1);
+        }
+    };
 
     return (
         <BaseContainer $bgColor = "white">
@@ -25,8 +43,9 @@ function DetailPage() {
                 <FeedDetailContent>
                     <SideBarDiv>
                         <SideBar>
-                            <FeedLikeImage src="/Img/like.png" />
-                            <FeedLikeCount>{feedData?.heartCount}</FeedLikeCount>
+                            <FeedLikeImage src={click ? "/Img/like2.png" : "/Img/like.png"}
+                                onClick={handleHeartClick} />
+                            <FeedLikeCount>{heartCountValue}</FeedLikeCount>
                             <FeedShareImage src = "/Img/share.png"/>
                         </SideBar>
                     </SideBarDiv>
@@ -179,7 +198,7 @@ const FeedAuthorInfoDiv = styled.div `
 const FeedAuthorImage = styled.img `
     width: 132px;
     height : 132px;
-    background-color: #d9d9d9;
+    border : 1px solid #d9d9d9;
     border-radius: 50%;
     margin-right: 20px;
     object-fit: cover;
