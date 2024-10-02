@@ -132,6 +132,7 @@ const Image = styled.img`
     width: 46px;
 `
 const FeedLikeImage = styled(Image)`
+    cursor: pointer;
 `;
 
 const FeedLikeCount = styled.p`
@@ -230,5 +231,6 @@ const LinkIconItem = styled.img`
     width: 35px;
     height : 35px;
     margin-right: 10px;
+    cursor: pointer;
 `;
 export default DetailPage;

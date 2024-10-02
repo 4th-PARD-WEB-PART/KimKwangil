@@ -160,6 +160,7 @@ const CancleButton = styled(Button)`
     color: #000000;
     background-color: #DEE2E6;
     margin-right: 10px;
+    cursor: pointer;
 
     &:hover {
         background-color: #DEE2E650;

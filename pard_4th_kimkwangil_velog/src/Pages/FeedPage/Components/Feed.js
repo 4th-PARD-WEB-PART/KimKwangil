@@ -172,7 +172,7 @@ const FeedAuthorName = styled.span `
 `;
 const FeedHeartImage = styled.img `
     margin-right: 10px;
-
+    cursor: pointer;
     transition: scale 0.5s ease;
     &:hover{
         scale: 1.3;

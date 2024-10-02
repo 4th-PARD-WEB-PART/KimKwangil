@@ -45,6 +45,7 @@ const HeaderDiv = styled(BaseDiv)`
 const LogoImage = styled.img `
     width: 72px;
     height : 23px;
+    cursor: pointer;
 `
 
 const IconList = styled.div `
@@ -54,10 +55,12 @@ const IconList = styled.div `
 
 const BellImage = styled.img `
     margin-right: 20px;
+    cursor: pointer;
 `;
 
 const SearchImage = styled.img `
     margin-right: 20px;
+    cursor: pointer;
 `;
 
 const WriteButton = styled.div `
@@ -74,6 +77,8 @@ const WriteButton = styled.div `
     box-sizing: border-box;
 
     margin-right: 20px;
+
+    cursor: pointer;
 
 `;
 
